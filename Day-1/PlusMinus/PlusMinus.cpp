@@ -7,49 +7,54 @@ string rtrim(const string &);
 vector<string> split(const string &);
 
 /*
- * Complete the 'miniMaxSum' function below.
+ * Complete the 'plusMinus' function below.
  *
  * The function accepts INTEGER_ARRAY arr as parameter.
  */
 
-void miniMaxSum(vector<int> arr)
+void plusMinus(vector<int> arr)
 {
-    // SORT THE VECTOR
-    std::sort(arr.begin(), arr.end());
-    size_t min_sum = 0;
-    size_t max_sum = 0;
-    size_t i = 0;
+    int i = 0;
+    float negatives = 0;
+    float positives = 0;
+    float zeros = 0;
     
-    // TO CALCULATE THE MIN_SUM I SHOULD SKIP LAST ELEMENT
-    // TO CALCULATE THE MAX_SUM I SHOUDL SKIL FIRST ELEMENT
     while (i < arr.size())
     {
-        if (i != arr.size() - 1)
-            min_sum += arr[i];
-        if (i != 0)
-            max_sum += arr[i];
+        if (arr[i] > 0)
+            positives++;
+        else if (arr[i] < 0)
+            negatives++;
+        else
+            zeros++;
         i++;
     }
-    std::cout << min_sum << " " << max_sum << std::endl;
+    std::cout << std::fixed << std::setprecision(6) << positives / arr.size() << std::endl;
+    std::cout << std::fixed << std::setprecision(6) << negatives / arr.size() << std::endl;
+    std::cout << std::fixed << std::setprecision(6) << zeros / arr.size() << std::endl;
 }
 
 int main()
 {
+    string n_temp;
+    getline(cin, n_temp);
+
+    int n = stoi(ltrim(rtrim(n_temp)));
 
     string arr_temp_temp;
     getline(cin, arr_temp_temp);
 
     vector<string> arr_temp = split(rtrim(arr_temp_temp));
 
-    vector<int> arr(5);
+    vector<int> arr(n);
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < n; i++) {
         int arr_item = stoi(arr_temp[i]);
 
         arr[i] = arr_item;
     }
 
-    miniMaxSum(arr);
+    plusMinus(arr);
 
     return 0;
 }
